@@ -48,7 +48,7 @@ def get_filters():
     print('Hello! Let\'s explore some US bikeshare data!')
     print('♦'*60)
     while True:
-        city = input("Please, enter the city (chicago, new york, washington): ")
+        city = input("Please, enter the city (chicago, new york, washington): ").lower()
         if city in CITY_DATA:
             break
         else:
@@ -57,7 +57,7 @@ def get_filters():
 
     # get user input for month (all, january, february, ... , june)
     while True:
-        month = input("Please, enter the month(All, Jan, Feb, March, April, May, june): ")
+        month = input("Please, enter the month(All, Jan, Feb, March, April, May, june): ").title()
         if month in Month or month == 'All':
             break
         else:
@@ -66,7 +66,7 @@ def get_filters():
 
     # get user input for day of week (all, monday, tuesday, ... sunday)
     while True:
-        day = input("Please, enter the day(All, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday): ")
+        day = input("Please, enter the day(All, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday): ").title()
         if day in Day or day == 'All':
             break
         else:
@@ -212,6 +212,13 @@ def user_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+def display_data(df):
+    view_data = input('\nWould you like to view 5 rows of individual trip data? Enter yes or no\n')
+    start_loc = 0
+    while (view_data == 'yes'):
+        print(df.iloc[start_loc : start_loc + 5])
+        start_loc += 5
+        view_data = input("Do you wish to continue?: ").lower()
 
 def main():
     while True:
@@ -224,6 +231,7 @@ def main():
         if city == 'chicago' or city == 'new york':
             user_stats(df)
         
+        display_data(df)
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
